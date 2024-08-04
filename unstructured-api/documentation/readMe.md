@@ -5,7 +5,7 @@
 
 By matt Robinson (Unstructured) and Andrew Ng
 
-To be noted that using Unstructured requires to send data to an API. https://app.unstructured.io/keys So in terms of security GPRD, don't seems good enough. 
+To be noted that using Unstructured requires to send data to an external API. https://app.unstructured.io/keys So in terms of security GPRD, don't seems good enough. 
 
 
 RAG : 

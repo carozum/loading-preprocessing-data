@@ -246,3 +246,133 @@ print(extract_text_from_pptx('example.pptx'))
 By combining `PyMuPDF`, `python-docx`, and `python-pptx` with `pytesseract`, you can extract both the text content and text from images in PDF, Word, and PowerPoint documents. This approach ensures you capture all textual data within your documents, regardless of whether it’s in standard text format or embedded within images.
 
 These libraries can be run on-premises or within your Azure infrastructure, ensuring that your data remains secure and under your control.
+
+
+# Other solutions to study
+To extract text from various types of files (PDF, PPTX, Word, Markdown, HTML, Outlook, Teams, etc.) both from text content and text included in images (using OCR), you have a few options that can be deployed on-premises or within an Azure environment. Here's an overview of tools and libraries that can help you achieve this, without sending your data to an external API:
+
+### Tools and Libraries for On-Premises or Azure Deployment
+
+#### 1. **Apache Tika**
+Apache Tika is a versatile library for extracting text from various file formats including PDF, Word, PPTX, HTML, and more. It can be run on-premises or in an Azure VM.
+
+**Installation and Usage:**
+```bash
+pip install tika
+```
+
+```python
+from tika import parser
+
+# Parse PDF
+parsed = parser.from_file('example.pdf')
+print(parsed['content'])
+
+# Parse Word document
+parsed = parser.from_file('example.docx')
+print(parsed['content'])
+
+# Parse PPTX
+parsed = parser.from_file('example.pptx')
+print(parsed['content'])
+```
+
+#### 2. **PyMuPDF (fitz) for PDF**
+For PDF extraction, PyMuPDF is highly efficient and straightforward.
+
+**Installation and Usage:**
+```bash
+pip install pymupdf
+```
+
+```python
+import fitz  # PyMuPDF
+
+def extract_text_from_pdf(pdf_path):
+    text = ""
+    with fitz.open(pdf_path) as doc:
+        for page in doc:
+            text += page.get_text()
+    return text
+
+print(extract_text_from_pdf('example.pdf'))
+```
+
+#### 3. **python-docx for Word Documents**
+To work with Word documents, `python-docx` is a reliable choice.
+
+**Installation and Usage:**
+```bash
+pip install python-docx
+```
+
+```python
+from docx import Document
+
+def extract_text_from_docx(docx_path):
+    doc = Document(docx_path)
+    return "\n".join([para.text for para in doc.paragraphs])
+
+print(extract_text_from_docx('example.docx'))
+```
+
+#### 4. **python-pptx for PowerPoint Presentations**
+`python-pptx` is used for extracting text from PPTX files.
+
+**Installation and Usage:**
+```bash
+pip install python-pptx
+```
+
+```python
+from pptx import Presentation
+
+def extract_text_from_pptx(pptx_path):
+    prs = Presentation(pptx_path)
+    text_runs = []
+    for slide in prs.slides:
+        for shape in slide.shapes:
+            if hasattr(shape, "text"):
+                text_runs.append(shape.text)
+    return "\n".join(text_runs)
+
+print(extract_text_from_pptx('example.pptx'))
+```
+
+#### 5. **pytesseract for OCR**
+To extract text from images within documents, use Tesseract OCR via `pytesseract`.
+
+**Installation and Usage:**
+```bash
+pip install pytesseract pillow
+```
+
+```python
+import pytesseract
+from PIL import Image
+
+# Ensure Tesseract is installed and added to your PATH
+def extract_text_from_image(image_path):
+    return pytesseract.image_to_string(Image.open(image_path))
+
+print(extract_text_from_image('example.png'))
+```
+
+### Deployment on Azure
+
+You can run these libraries on Azure Virtual Machines or Azure Kubernetes Service (AKS) for scalable and secure deployment. Ensure that your environment is configured to handle the necessary libraries and dependencies.
+
+### LangChain and LlamaIndex
+
+LangChain and LlamaIndex are primarily frameworks for building language models and integrating them with various data sources and pipelines. While they can help orchestrate and integrate different components of an NLP pipeline, they do not inherently provide the text extraction capabilities out of the box. However, they can be used in conjunction with the aforementioned libraries to build comprehensive NLP solutions.
+
+### Conclusion
+
+For an on-premises or Azure-based solution to extract text from various document types, you can leverage the following libraries:
+- **Apache Tika**: For a broad range of file types.
+- **PyMuPDF (fitz)**: For PDF files.
+- **python-docx**: For Word documents.
+- **python-pptx**: For PowerPoint presentations.
+- **pytesseract**: For OCR on images.
+
+By using these libraries, you ensure that your data processing remains within your control, and you do not need to send data to external APIs. For deployment, consider using Azure Virtual Machines or Azure Kubernetes Service to maintain a secure and scalable environment.
