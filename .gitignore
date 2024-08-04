@@ -1,3 +1,3 @@
 .env
-env
-__pythoncache__
+env/
+__pycache__/

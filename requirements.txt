@@ -21,3 +21,5 @@ opencv-python==4.9.0.80
 
 pikepdf==8.13.0
 pypdf==4.0.1
+
+spacy

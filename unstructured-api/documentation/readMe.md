@@ -4,6 +4,10 @@
 [DeepLearningAI](https://learn.deeplearning.ai/courses/preprocessing-unstructured-data-for-llm-applications/lesson/1/introduction)
 
 By matt Robinson (Unstructured) and Andrew Ng
+
+To be noted that using Unstructured requires to send data to an API. https://app.unstructured.io/keys So in terms of security GPRD, don't seems good enough. 
+
+
 RAG : 
 - data loading, 
 - chunking
@@ -31,13 +35,13 @@ Data loader must be able to
 *contextual integration* RAG apps load context into a database, then retrieve content to insert into a prompt that is passed to the LLM. The LLM can use these external elements to construct its response. 
 ![data preprocessing and LLMs](image.png)
 
-*Prepocessing outpurs*
+*Preprocessing outputs*
 - *Document content* : text content from the documents. Used for keyword or similarity search in Rag apps. 
 - *Document elements* The basic building blocks of a document. Useful for various RAG tasks, such as filtering and chunking semantically : title, narrative text, list item, table, image...
 - *Element metadata* Additional information about an element. Useful for filtering in hybrid search and for identifying the source of a response : filename, filetype, page number, section...
 
 *Why is data processing hard? *
-- *content cues* : different document types = different cues to identify the same element (for example a header <h1> or # or...) 
+- *content cues* : different document types = different cues to identify the same element (for example a header h1 or # or...) 
 - *standardization need* : variety of formats, so standardization needed so that you app can process them in the same way
 - *Extraction variability* : different document formats may require different extraction approaches (forms vs. journal articles...)
 - *metadata insights* : extracting metadata requires an understanding of document structure.
@@ -63,5 +67,5 @@ Serialization benefits : serialization allows the results of document preprocess
 
 ## HTML Page
 - LLM relevance : integrating fresh internet data into LLMs to maintain their currentness and relevance
-- HTML understanding: essential for structuring web content, using elements like <h1> for titles.
+- HTML understanding: essential for structuring web content, using elements like h1 for titles.
 - Data extraction and categorization: analyzing HTML elements to extract and organize web content into structured formats for relevant information distillation
